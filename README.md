@@ -1,3 +1,3 @@
 # happybot
 
-Slack bot for expand go playground and wiki links
+Slack bot for expanding go playground and wiki links
