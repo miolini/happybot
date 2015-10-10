@@ -124,12 +124,13 @@ func main() {
 					fmt.Println("Author:", bot.UserIdToName(msg.User))
 					fmt.Println("Channel:", bot.ChannelIdToName(msg.Channel))
 					fmt.Println("Text:", msg.Text)
-					playgroundUrl := regexp.MustCompile(`https?\:\/\/play\.golang\.org\/p\/([a-zA-Z0-9]+)`)
+					playgroundUrl := regexp.MustCompile(`https?\:\/\/play\.golang\.org\/p\/[^>^/]+`)
 					wikiUrl := regexp.MustCompilePOSIX(`https?\:\/\/[a-z]*\.wikipedia\.org\/wiki\/([a-zA-Z0-9%_\(\)а-яА-я\,\:]+)`)
 					switch {
 					case playgroundUrl.MatchString(msg.LowerText()):
 						uris := playgroundUrl.FindAllString(msg.Text, -1)
 						for _, uri := range uris {
+							log.Printf("playground url: %s", uri)
 							bot.SendMessage(msg.Channel, playground(uri))
 						}
 					case wikiUrl.MatchString(msg.LowerText()):
